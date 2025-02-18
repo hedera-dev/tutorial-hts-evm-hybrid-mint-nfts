@@ -32,7 +32,7 @@ The repository contains three main smart contracts with corresponding test suite
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/hts-evm-hybrid-mint-nfts.git
+   git clone https://github.com/hedera-dev/hts-evm-hybrid-mint-nfts.git
    cd hts-evm-hybrid-mint-nfts
    ```
 
