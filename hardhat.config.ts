@@ -13,7 +13,6 @@ const config: HardhatUserConfig = {
       accounts: [
         process.env.PRIVATE_KEY as string,
         process.env.PRIVATE_KEY_2 as string,
-        process.env.PRIVATE_KEY_3 as string,
       ],
       timeout: 1000000,
     },
