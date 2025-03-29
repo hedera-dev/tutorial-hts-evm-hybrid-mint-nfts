@@ -15,7 +15,7 @@ describe("Mint NFT", function () {
   it("should create an NFT", async () => {
     const mintTx = await mintNftContract.createNFT("Test NFT", "TST", "Test NFT", {
       gasLimit: 250_000,
-      value: ethers.parseEther("7")
+      value: ethers.parseEther("15")
     });
 
     await expect(mintTx)

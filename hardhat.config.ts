@@ -10,6 +10,7 @@ const config: HardhatUserConfig = {
   networks: {
     testnet: {
       url: "https://testnet.hashio.io/api",
+      // url: "http://localhost:7546",
       accounts: [
         process.env.PRIVATE_KEY as string,
         process.env.PRIVATE_KEY_2 as string,
