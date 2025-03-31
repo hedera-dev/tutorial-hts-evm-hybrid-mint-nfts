@@ -28,7 +28,7 @@ interface IHederaTokenService {
     /// NON_FUNGIBLE_UNIQUE type. When minting NFTs the sender will be the default AccountID instance
     /// (0.0.0 aka 0x0) and when burning NFTs, the receiver will be the default AccountID instance.
     /// @custom:version 0.3.0 previous version did not include isApproval
-    struct NftTransfer {
+    struct NFTTransfer {
         // The solidity address of the sender
         address senderAccountID;
         // The solidity address of the receiver
@@ -46,9 +46,9 @@ interface IHederaTokenService {
         // Applicable to tokens of type FUNGIBLE_COMMON. Multiple list of AccountAmounts, each of which
         // has an account and amount.
         AccountAmount[] transfers;
-        // Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of
+        // Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NFTTransfers, each of
         // which has a sender and receiver account, including the serial number of the NFT
-        NftTransfer[] nftTransfers;
+        NFTTransfer[] nftTransfers;
     }
 
     struct TransferList {
@@ -260,7 +260,7 @@ interface IHederaTokenService {
     /// Represents a unique NFT by its token address and serial number
     /// @param nft The address of the NFT token
     /// @param serial The serial number that uniquely identifies this NFT within its token type
-    struct NftID {
+    struct NFTID {
         address nft;
         int64 serial;
     }
@@ -878,6 +878,6 @@ interface IHederaTokenService {
     function rejectTokens(
         address rejectingAddress,
         address[] memory ftAddresses,
-        NftID[] memory nftIDs
+        NFTID[] memory nftIDs
     ) external returns (int64 responseCode);
 }

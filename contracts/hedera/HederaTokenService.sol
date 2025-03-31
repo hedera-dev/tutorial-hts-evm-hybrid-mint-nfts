@@ -1279,7 +1279,7 @@ abstract contract HederaTokenService {
     function rejectTokens(
         address rejectingAddress,
         address[] memory ftAddresses,
-        IHederaTokenService.NftID[] memory nftIds
+        IHederaTokenService.NFTID[] memory nftIds
     ) internal returns (int64 responseCode) {
         (bool success, bytes memory result) = precompileAddress.call(
             abi.encodeWithSelector(

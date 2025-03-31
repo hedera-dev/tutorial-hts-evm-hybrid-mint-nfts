@@ -204,7 +204,7 @@ library HederaResponseCodes {
     int32 internal constant INVALID_TOKEN_MAX_SUPPLY = 224; // Invalid token max supply
     int32 internal constant INVALID_TOKEN_NFT_SERIAL_NUMBER = 225; // Invalid token nft serial number
     int32 internal constant INVALID_NFT_ID = 226; // Invalid nft id
-    int32 internal constant METADATA_TOO_LONG = 227; // Nft metadata is too long
+    int32 internal constant METADATA_TOO_LONG = 227; // NFT metadata is too long
     int32 internal constant BATCH_SIZE_LIMIT_EXCEEDED = 228; // Repeated operations count exceeds the limit
     int32 internal constant INVALID_QUERY_RANGE = 229; // The range of data to be gathered is out of the set boundaries
     int32 internal constant FRACTION_DIVIDES_BY_ZERO = 230; // A custom fractional fee set a denominator of zero
@@ -294,7 +294,7 @@ library HederaResponseCodes {
     int32 internal constant NFT_IN_FUNGIBLE_TOKEN_ALLOWANCES = 299; // Non fungible token used in fungible token allowances
     int32 internal constant INVALID_ALLOWANCE_OWNER_ID = 300; // The account id specified as the owner is invalid or does not exist.
     int32 internal constant INVALID_ALLOWANCE_SPENDER_ID = 301; // The account id specified as the spender is invalid or does not exist.
-    int32 internal constant REPEATED_ALLOWANCES_TO_DELETE = 302; // [Deprecated] If the CryptoDeleteAllowance transaction has repeated crypto or token or Nft allowances to delete.
+    int32 internal constant REPEATED_ALLOWANCES_TO_DELETE = 302; // [Deprecated] If the CryptoDeleteAllowance transaction has repeated crypto or token or NFT allowances to delete.
     int32 internal constant INVALID_DELEGATING_SPENDER = 303; // If the account Id specified as the delegating spender is invalid or does not exist.
     int32 internal constant DELEGATING_SPENDER_CANNOT_GRANT_APPROVE_FOR_ALL =
         304; // The delegating Spender cannot grant approveForAll allowance on a NFT token type for another spender.

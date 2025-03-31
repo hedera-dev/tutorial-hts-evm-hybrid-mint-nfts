@@ -6,7 +6,7 @@ This repository demonstrates how to create and manage NFTs on the Hedera network
 
 The repository contains three main smart contracts with corresponding test suites:
 
-1. **Part 1: Basic NFT Minting (`1-MintNft.sol`)**
+1. **Part 1: Basic NFT Minting (`1-MintNFT.sol`)**
    - Demonstrates basic NFT creation and minting
    - Shows how to interact with Hedera Token Service
    - Basic token management operations
@@ -54,7 +54,7 @@ The repository contains three main smart contracts with corresponding test suite
 
 ```
 ├── contracts/
-│   ├── 1-MintNft.sol
+│   ├── 1-MintNFT.sol
 │   ├── 2-KYCandUpdateNFT.sol
 │   ├── 3-PauseFreezeWipeDelete.sol
 │   └── hedera/

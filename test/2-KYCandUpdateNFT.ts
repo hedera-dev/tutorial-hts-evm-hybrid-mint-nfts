@@ -22,7 +22,7 @@ function getSignerCompressedPublicKey(
 }
 
 describe("KYC and Update NFT", function () {
-    let kycNftContract: KYCandUpdateNFT;
+    let kycNFTContract: KYCandUpdateNFT;
     let account1: any;
     let account2: any; // Will be generated
 
@@ -43,13 +43,13 @@ describe("KYC and Update NFT", function () {
     });
 
     it("should deploy the KYCandUpdateNFT contract", async () => {
-        kycNftContract = await ethers.deployContract("KYCandUpdateNFT");
-        console.log("KYCandUpdateNFT contract deployed to:", kycNftContract.target);
-        expect(kycNftContract.target).to.be.properAddress;
+        kycNFTContract = await ethers.deployContract("KYCandUpdateNFT");
+        console.log("KYCandUpdateNFT contract deployed to:", kycNFTContract.target);
+        expect(kycNFTContract.target).to.be.properAddress;
     });
 
     it("should create an NFT", async () => {
-        const createTx = await kycNftContract.createNFT(
+        const createTx = await kycNFTContract.createNFT(
             "KYC Test NFT",
             "KYCNFT",
             "NFT with KYC",
@@ -60,12 +60,12 @@ describe("KYC and Update NFT", function () {
         );
 
         await expect(createTx)
-            .to.emit(kycNftContract, "NFTCreated")
+            .to.emit(kycNFTContract, "NFTCreated")
             .withArgs(ethers.isAddress);
     });
 
     it("should associate NFT to account 1 and 2", async () => {
-        const tokenAddress = await kycNftContract.getTokenAddress();
+        const tokenAddress = await kycNFTContract.getTokenAddress();
         const client = Client.forTestnet()
         // botch job
         // const accountId1 = "0.0.5115129"
@@ -106,38 +106,38 @@ describe("KYC and Update NFT", function () {
             ethers.toUtf8Bytes("ipfs://bafkreibr7cyxmy4iyckmlyzige4ywccyygomwrcn4ldcldacw3nxe3ikgq"),
         ];
 
-        const mintTx = await kycNftContract.mintNFT(metadata, {
+        const mintTx = await kycNFTContract.mintNFT(metadata, {
             gasLimit: 350_000
         });
 
         await expect(mintTx)
-            .to.emit(kycNftContract, "NFTMinted");
+            .to.emit(kycNFTContract, "NFTMinted");
     });
 
     it("should fail to transfer NFT to account without KYC", async () => {
         const serialNumber = 1n; // First minted NFT
 
         await expect(
-            kycNftContract.transferNFT(account1.address, serialNumber, {
+            kycNFTContract.transferNFT(account1.address, serialNumber, {
                 gasLimit: 350_000
             })
         ).to.be.reverted;
     });
 
     it("should grant KYC to account1", async () => {
-        const grantKycTx = await kycNftContract.grantKYC(account1.address, {
+        const grantKycTx = await kycNFTContract.grantKYC(account1.address, {
             gasLimit: 350_000
         });
 
         await expect(grantKycTx)
-            .to.emit(kycNftContract, "KYCGranted")
+            .to.emit(kycNFTContract, "KYCGranted")
             .withArgs(account1.address);
     });
 
     it("should successfully transfer NFT to account with KYC", async () => {
         const serialNumber = 1n;
 
-        const transferTx = await kycNftContract.transferNFT(
+        const transferTx = await kycNFTContract.transferNFT(
             account1.address,
             serialNumber,
             {
@@ -146,29 +146,29 @@ describe("KYC and Update NFT", function () {
         );
 
         await expect(transferTx)
-            .to.emit(kycNftContract, "NFTTransferred")
+            .to.emit(kycNFTContract, "NFTTransferred")
             .withArgs(account1.address, serialNumber);
 
         // Verify ownership
-        const tokenAddress = await kycNftContract.getTokenAddress();
+        const tokenAddress = await kycNFTContract.getTokenAddress();
         const nftContract = await ethers.getContractAt("IERC721", tokenAddress);
         expect(await nftContract.ownerOf(serialNumber)).to.equal(account1.address);
     });
 
     it("should successfully update KYC key to account1", async () => {
         const account1CompressedPublicKey = getSignerCompressedPublicKey(0)
-        const updateKycTx = await kycNftContract.updateKYCKey(account1CompressedPublicKey, {
+        const updateKycTx = await kycNFTContract.updateKYCKey(account1CompressedPublicKey, {
             gasLimit: 350_000
         });
 
         await expect(updateKycTx)
-            .to.emit(kycNftContract, "KYCKeyUpdated")
+            .to.emit(kycNFTContract, "KYCKeyUpdated")
             .withArgs(account1CompressedPublicKey);
     });
 
     it("should fail to grant KYC to account2 after KYC key update", async () => {
         await expect(
-            kycNftContract.grantKYC(account2.address, {
+            kycNFTContract.grantKYC(account2.address, {
                 gasLimit: 350_000
             })
         ).to.be.reverted
