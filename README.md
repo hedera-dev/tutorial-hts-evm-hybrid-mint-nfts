@@ -42,9 +42,9 @@ The repository contains three main smart contracts with corresponding test suite
    ```
 
 3. Configure environment variables:
-   - Copy `sample.env` to `.env`
+   - Copy `.env.example` to `.env`
    ```bash
-   cp sample.env .env
+   cp .env.example .env
    ```
    - Fill in the following ECDSA private key variables in `.env`:
      - `PRIVATE_KEY`: Your Hedera account's private key
