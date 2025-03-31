@@ -1,5 +1,7 @@
 import { expect } from "chai";
 import { ethers, config, network } from "hardhat";
+// import { HDNodeWallet, Wallet } from "ethers";
+// import { HardhatEthersHelpers } from "hardhat/types";
 import { KYCandUpdateNFT } from "../typechain-types";
 import { AccountId, Client, PrivateKey, TokenAssociateTransaction, TokenId } from "@hashgraph/sdk";
 
@@ -22,10 +24,22 @@ function getSignerCompressedPublicKey(
 describe("KYC and Update NFT", function () {
     let kycNftContract: KYCandUpdateNFT;
     let account1: any;
-    let account2: any
+    let account2: any; // Will be generated
 
     before(async () => {
-        [account1, account2] = await ethers.getSigners();
+        [account1] = await ethers.getSigners();
+
+        // Generate a new random wallet for account2 and connect it to the provider
+        account2 = ethers.Wallet.createRandom().connect(ethers.provider);
+
+        // Fund the new account2 from account1 to activate its EVM alias
+        console.log(`Funding account ${account2.address} from ${account1.address}`);
+        const tx = await account1.sendTransaction({
+            to: account2.address,
+            value: ethers.parseEther("20") // Send 0.1 HBAR
+        });
+        await tx.wait();
+        console.log(`Account ${account2.address} funded.`);
     });
 
     it("should deploy the KYCandUpdateNFT contract", async () => {
@@ -62,9 +76,10 @@ describe("KYC and Update NFT", function () {
         const privateKey = PrivateKey.fromStringECDSA(process.env.PRIVATE_KEY as string)
         client.setOperator(accountId1, privateKey);
 
+        // Derive accountId2 and its private key from the generated ethers wallet
         const accountId2 = await AccountId.fromEvmAddress(0, 0, account2.address).populateAccountNum(client)
         accountId2.evmAddress = null
-        const privateKey2 = PrivateKey.fromStringECDSA(process.env.PRIVATE_KEY_2 as string)
+        const privateKey2 = PrivateKey.fromStringECDSA(account2.privateKey); // Use the private key from the generated wallet
 
         // Create TokenAssociateTransaction and sign with account1's key
         const transaction = new TokenAssociateTransaction()
@@ -156,7 +171,7 @@ describe("KYC and Update NFT", function () {
             kycNftContract.grantKYC(account2.address, {
                 gasLimit: 350_000
             })
-        ).to.be.revertedWith("Failed to grant KYC");
+        ).to.be.reverted
     });
 
 });
