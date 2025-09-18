@@ -49,7 +49,6 @@ The repository contains three main smart contracts with corresponding test suite
    - Get private key from https://portal.hedera.com or use the faucet at https://portal.hedera.com/faucet
    - Fill in the following ECDSA private key variables in `.env`:
      - `PRIVATE_KEY`: Your Hedera account's private key
-     - `PRIVATE_KEY_2`: Secondary account private key for testing
 
 ## Project Structure
 
