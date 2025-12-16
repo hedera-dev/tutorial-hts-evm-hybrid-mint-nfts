@@ -46,7 +46,7 @@ The repository contains three main smart contracts with corresponding test suite
    ```bash
    cp .env.example .env
    ```
-   - Get private key from https://portal.hedera.com or use the faucet at https://portal.hedera.com/faucet
+   - Get private key from the [Hedera Portal](https://hubs.ly/Q03Yhv6s0) or use the [Hedera Faucet](https://hubs.ly/Q03Yhv3q0) to top up your existing account
    - Fill in the following ECDSA private key variables in `.env`:
      - `PRIVATE_KEY`: Your Hedera account's private key
 
